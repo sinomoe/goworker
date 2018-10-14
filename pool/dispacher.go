@@ -4,7 +4,7 @@ import (
 	"log"
 	"sync"
 
-	"github.com/sino2322/go_worker_pool/work"
+	"github.com/sinomoe/go_worker_pool/work"
 )
 
 type Collector struct {
