@@ -10,9 +10,9 @@ import (
 func BenchmarkConcurrent(b *testing.B) {
 	collector := pool.StartDispatcher(4)
 	for _, w := range work.MockSomeWorks(30) {
-		collector.Input <- &w
+		collector.Send(&w)
 	}
-	collector.End <- true
+	collector.End()
 }
 
 func BenchmarkSequencial(b *testing.B) {
