@@ -8,8 +8,8 @@ import (
 
 type Worker struct {
 	ID            int
-	WorkerChannel chan chan work.Work
-	Channel       chan work.Work
+	WorkerChannel chan chan work.Workable
+	Channel       chan work.Workable
 	End           chan bool
 }
 
@@ -21,7 +21,7 @@ func (w *Worker) Start() {
 			case <-w.End:
 				return
 			case work1 := <-w.Channel:
-				work.DoWork(w.ID, work1)
+				work1.DoWork(w.ID)
 			}
 		}
 	}()

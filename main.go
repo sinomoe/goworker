@@ -8,11 +8,11 @@ import (
 )
 
 func main() {
-	c := pool.StartDispatcher(5)
+	c := pool.StartDispatcher(4)
 	works := work.MockSomeWorks(30)
 
 	for i := range works {
-		c.Input <- works[i]
+		c.Input <- &works[i]
 	}
 	c.End <- true
 	time.Sleep(2 * time.Second)

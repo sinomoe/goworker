@@ -13,6 +13,10 @@ type Work struct {
 	Job string
 }
 
+type Workable interface {
+	DoWork(int)
+}
+
 var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
 
 func randomString(length int) string {
@@ -31,11 +35,11 @@ func MockSomeWorks(amount int) []Work {
 	return works
 }
 
-func DoWork(workerId int, work Work) {
+func (w *Work) DoWork(workerId int) {
 	hash := fnv.New32a()
-	hash.Write([]byte(work.Job))
+	hash.Write([]byte(w.Job))
 	if os.Getenv("DEBUG") == "true" {
-		log.Printf("Worker[%d]: Doing Work[%d] hash word[\"%s\"] to [\"%d\"]\n", workerId, work.ID, work.Job, hash.Sum32)
+		log.Printf("Worker[%d]: Doing Work[%d] hash word[\"%s\"] to [\"%d\"]\n", workerId, w.ID, w.Job, hash.Sum32())
 	}
 	time.Sleep(time.Second / 2)
 }
