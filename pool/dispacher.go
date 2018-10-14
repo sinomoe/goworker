@@ -2,18 +2,37 @@ package pool
 
 import (
 	"log"
+	"sync"
 
 	"github.com/sino2322/go_worker_pool/work"
 )
 
 type Collector struct {
-	Input chan work.Workable
-	End   chan bool
+	work chan work.Workable
+	end  chan bool
+	wg   sync.WaitGroup
+}
+
+func (c *Collector) Send(work work.Workable) {
+	c.work <- work
+}
+
+func (c *Collector) End() {
+	c.end <- true
+	c.wg.Wait()
 }
 
 func StartDispatcher(workerAmount int) *Collector {
 	workerChannel := make(chan chan work.Workable, workerAmount)
 	workers := make([]Worker, workerAmount)
+
+	input := make(chan work.Workable)
+	end := make(chan bool)
+	collector := Collector{
+		work: input,
+		end:  end,
+	}
+	collector.wg.Add(workerAmount)
 
 	// 初始化所有 worker
 	// 每个 worker 有自己的 channel, end
@@ -24,9 +43,6 @@ func StartDispatcher(workerAmount int) *Collector {
 		workers[i].Start()
 	}
 
-	input := make(chan work.Workable)
-	end := make(chan bool)
-	collector := Collector{input, end}
 	// 调度Worker
 	go func() {
 		for {
@@ -34,6 +50,7 @@ func StartDispatcher(workerAmount int) *Collector {
 			case <-end:
 				for i := range workers {
 					workers[i].Stop()
+					collector.wg.Done()
 				}
 				return
 			case work := <-input:
