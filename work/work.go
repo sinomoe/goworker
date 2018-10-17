@@ -1,3 +1,5 @@
+// Package work defines Workable interface
+// and implement a sample case
 package work
 
 import (
@@ -8,13 +10,16 @@ import (
 	"time"
 )
 
+// Work is a sample work type which implemented Workable interface
 type Work struct {
 	ID  int
 	Job string
 }
 
+// a workable work must have a Do method
 type Workable interface {
-	DoWork(int)
+	// Do runs the specified work with argument of worker id
+	Do(int)
 }
 
 var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
@@ -27,6 +32,7 @@ func randomString(length int) string {
 	return string(rs)
 }
 
+// MockSomeWorks mocks some sample works implemented Workable interface
 func MockSomeWorks(amount int) []Work {
 	works := make([]Work, amount)
 	for i := range works {
@@ -35,7 +41,8 @@ func MockSomeWorks(amount int) []Work {
 	return works
 }
 
-func (w *Work) DoWork(workerId int) {
+// Do implements Workable interface sample
+func (w *Work) Do(workerId int) {
 	hash := fnv.New32a()
 	hash.Write([]byte(w.Job))
 	if os.Getenv("DEBUG") == "true" {

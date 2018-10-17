@@ -15,8 +15,8 @@ func BenchmarkConcurrent(b *testing.B) {
 	collector.End()
 }
 
-func BenchmarkSequencial(b *testing.B) {
+func BenchmarkSequential(b *testing.B) {
 	for _, w := range work.MockSomeWorks(30) {
-		w.DoWork(0)
+		w.Do(0)
 	}
 }
