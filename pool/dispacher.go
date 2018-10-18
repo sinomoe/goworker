@@ -9,7 +9,8 @@ import (
 	"github.com/sinomoe/go_worker_pool/work"
 )
 
-// a Collector have
+// Collector is the bridge to communicate with workers
+// which have
 // 1. a work channel to receive new work
 // and then send them to available workers.
 // 2. an end channel to receive end signal
