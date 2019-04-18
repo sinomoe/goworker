@@ -1,13 +1,20 @@
 ## go worker pool
 
+![MIT](https://img.shields.io/badge/license-MIT-blue.svg)
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
+[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
+
 deadly simple worker pool implementation for concurrency control in golang.
 
 ## Get started
 
 ```golang
 import (
-	"github.com/sinomoe/go_worker_pool/pool"
-	"github.com/sinomoe/go_worker_pool/work"
+    "fmt"
+    "time"
+    
+    "github.com/sinomoe/go_worker_pool/pool"
+    "github.com/sinomoe/go_worker_pool/work"
 )
 
 // task A
@@ -27,8 +34,8 @@ func main() {
     c := pool.StartDispatcher(4)
     
     // send task to collector
-    c.Send(work.HandleFunc(myWorkA)
-    c.Send(work.HandleFunc(myWorkB)
+    c.Send(work.HandleFunc(myWorkA))
+    c.Send(work.HandleFunc(myWorkB))
     
     // wait end
     c.End()
