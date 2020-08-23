@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/sinomoe/go_worker_pool/pool"
-	"github.com/sinomoe/go_worker_pool/work"
+	"goworker/pool"
+	"goworker/work"
 )
 
 func mockSomeWorks(n int) []*work.DefaultWork {

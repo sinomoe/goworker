@@ -5,19 +5,19 @@ package pool
 import (
 	"log"
 
-	"github.com/sinomoe/go_worker_pool/work"
+	"goworker/work"
 )
 
 // a worker represents a goroutine
 type worker struct {
 	// id is a worker's unique attribute
-	id            int
+	id int
 	// channel is used to receive new works
 	channel chan work.Workable
 	// workerChannel holds all available worker's channel
 	workerChannel chan chan work.Workable
 	// end is used to receive end signal
-	end           chan bool
+	end chan bool
 }
 
 // start spawn a new goroutine which represents a worker.
