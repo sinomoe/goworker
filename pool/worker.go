@@ -5,7 +5,7 @@ package pool
 import (
 	"log"
 
-	"goworker/work"
+	"github.com/sinomoe/goworker/work"
 )
 
 // a worker represents a goroutine

@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"goworker/pool"
+	"github.com/sinomoe/goworker/pool"
 )
 
 // Work is a sample work type which implemented Workable interface

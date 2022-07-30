@@ -6,7 +6,7 @@ import (
 	"log"
 	"sync"
 
-	"goworker/work"
+	"github.com/sinomoe/goworker/work"
 )
 
 // Collector is the bridge to communicate with workers

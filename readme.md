@@ -11,8 +11,8 @@ import (
     "fmt"
     "time"
     
-    "goworker/pool"
-    "goworker/work"
+    "github.com/sinomoe/goworker/pool"
+    "github.com/sinomoe/goworker/work"
 )
 
 // task A

@@ -1,3 +1,3 @@
-module goworker
+module github.com/sinomoe/goworker
 
-go 1.14
+go 1.18
